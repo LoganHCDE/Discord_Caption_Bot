@@ -6,6 +6,7 @@ import os
 import google.generativeai as genai
 from google.api_core import exceptions as google_exceptions 
 from PIL import Image
+from keep_alive import keep_alive
 
 load_dotenv()
 D_Token = os.getenv('DISCORD_TOKEN')
@@ -91,14 +92,11 @@ async def on_message(message):
                         os.remove(temp_image_path)
                 break 
 
+
+keep_alive()
+
 print("Starting bot...")
 if D_Token:
     bot.run(D_Token, log_handler=handler, log_level=logging.DEBUG)
 else:
     print("FATAL ERROR: DISCORD_TOKEN not found in environment variables.")
-
-
-
-
-
-
